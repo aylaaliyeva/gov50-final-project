@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to the effect of training and education on countries' economic growth in order to establish causality between the average number of years of schooling received by the population and countries' GDP over time. One thing I am worried about in the project is reverse causality, as I would have to find a way to minimise the possibility that it is in fact changes in GDP that affect the rate of schooling rather than vice versa.
