@@ -1,7 +1,10 @@
 Variable Name        Variable Description
 -------------        --------------------
 code                 Country code, alpha, 3-digit                                                                                                                                                                            
-country                                                                                                                                                                                                                      
+country   
+
+africa                Dummy variable for African and Subsaharan countries
+
 sftgname             English country name                                                                                                                                                                                                   
 agovdem60            Anti-government demonstrations: Any peaceful public gathering of at least 100 people                                                                                                                       
 agovdem70            Anti-government demonstrations: Any peaceful public gathering of at least 100 people                                                                                                                       

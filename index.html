@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data(final project gov 50)/violence.numbers","data(final project gov 50)/Violence/violence-codebook.txt","data(final project gov 50)/Violence/violence.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data(final project gov 50)/violence.numbers","data(final project gov 50)/Violence/violence-codebook.txt","data(final project gov 50)/Violence/violence.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1570,13 +1570,38 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>violence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data(final project gov 50)/Violence/violence.csv"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>violence</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>constch_overall <span class='op'>=</span> <span class='va'>constchg60</span> <span class='op'>+</span> <span class='va'>constchg70</span> <span class='op'>+</span> <span class='va'>constchg80</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>violence</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>corrupti</span>, y <span class='op'>=</span> <span class='va'>constch_overall</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span> <span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes by Corruption Level"</span>, y <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes"</span>, x <span class='op'>=</span> <span class='st'>"Corruption Level"</span><span class='op'>)</span> </span></code></pre>
+<span><span class='va'>violence</span> <span class='op'>&lt;-</span> <span class='va'>violence</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>constch_overall <span class='op'>=</span> <span class='va'>constchg60</span> <span class='op'>+</span> <span class='va'>constchg70</span> <span class='op'>+</span> <span class='va'>constchg80</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>violence</span><span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>violence</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>corrupti</span>, y <span class='op'>=</span> <span class='va'>constch_overall</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span> <span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes by Corruption Level"</span>, y <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes"</span>, x <span class='op'>=</span> <span class='st'>"Corruption Level"</span><span class='op'>)</span> </span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="results-from-first-analysis">Results From First Analysis</h2>
+<p>By conducting this analysis, my aim was to further investigate the relationship between corruption levels and frequencies of constitutional change globally. Through the linear regression model, we can observe that each unit increase in corruption is associated with a decrease of 0.1214 in the number of major constitutional changes. Additionally, the intercept relays that for a country with a corruption level of 0, the expected number of major constitutional changes would be 0.8062.
+Thus, we can conclude that the correlation between corruption levels and frequencies of constitutional change is negative, which is shown by the estimated line of best fit on the scatterplot below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>constch_overall</span> <span class='op'>~</span> <span class='va'>corrupti</span>, data <span class='op'>=</span> <span class='va'>violence</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>fit</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = constch_overall ~ corrupti, data = violence)
+
+Coefficients:
+(Intercept)     corrupti  
+     0.8062      -0.1214  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fit_visual</span> <span class='op'>&lt;-</span> <span class='va'>violence</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>corrupti</span>, y <span class='op'>=</span> <span class='va'>constch_overall</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='va'>lm</span>, colour <span class='op'>=</span> <span class='st'>"brown"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Linear Regression on Corruption and Constitutional Changes"</span>, y <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes"</span>, x <span class='op'>=</span> <span class='st'>"Corruption Level"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>fit_visual</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

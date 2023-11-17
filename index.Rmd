@@ -43,11 +43,55 @@ corrupti             Knack and Keefer measure of corruption (1980-89)
 ```{r}
 violence <- read_csv("data(final project gov 50)/Violence/violence.csv")
 
-violence |>
-  mutate(constch_overall = constchg60 + constchg70 + constchg80) |>
-ggplot(violence, mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + geom_smooth() + labs (title = "Number of Constitutional Changes by Corruption Level", y = "Number of Constitutional Changes", x = "Corruption Level") 
+violence <- violence |>
+  mutate(constch_overall = constchg60 + constchg70 + constchg80) 
+
+violence|>
+ggplot(violence, mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + labs (title = "Number of Constitutional Changes by Corruption Level", y = "Number of Constitutional Changes", x = "Corruption Level") 
 
 ```
+
+
+## Results From First Analysis
+
+By conducting this analysis, my aim was to further investigate the relationship between corruption levels and frequencies of constitutional change globally. Through the linear regression model, we can observe that each unit increase in corruption is associated with a decrease of 0.1214 in the number of major constitutional changes. Additionally, the intercept relays that for a country with a corruption level of 0, the expected number of major constitutional changes would be 0.8062.
+ Thus, we can conclude that the correlation between corruption levels and frequencies of constitutional change is negative, which is shown by the estimated line of best fit on the scatterplot below.
+ 
+
+```{r}
+fit <- lm(constch_overall ~ corrupti, data = violence)
+
+fit
+
+fit_visual <- violence |> ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level")
+
+fit_visual
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
