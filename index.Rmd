@@ -10,66 +10,91 @@ output:
 library(tidyverse)
 ```
 
-
-
-## Introduction
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Finding Data and Writing a Proposal
-
-Note: I have changed my research question from what I initially intended it to be, which is why this section and the one prior contain different ideas.
-
-Do higher levels of corruption lead to more frequent constitutional changes? In this study, I plan to examine data from a variety of countries in order to explore the relationship between different levels of corruption and the frequency of constitutional changes in said countries between the years 1960 to 1990. I hypothesize that higher levels of corruption are to be positively correlated with more frequent constitutional changes, this hypothesis being grounded in the behavioral theory that governments with higher corruption rates are more likely to revise legislation more often in order to elude legal accountability and hold on to power. My explanatory variable is the level of corruption measured using the 1980-89 Knack and Keefer measure of corruption, with a higher number indicating a higher level of corruption. My outcome variable of interest is the amount of major constitutional changes (or “basic changes alterations in a state’s constitution”) in a given country during a given decade. If I observe a repeated trend of a higher count of constitutional changes in countries with more corruption in comparison to those with lower corruption, this would support my hypothesis. If, on the other hand, I see no plausible correlation between the two, or in fact, if governments with lower levels of corruption had implemented more frequent constitutional changes compared to countries with higher corruption, this would disprove my hypothesis.
-
-
-## First Visualisation
-
-
-
 Variable Name        Variable Description
 -------------        --------------------
-code                 Country code, alpha, 3-digit                                                                                                                                                                            
 country              Country                                                                                                                                                                                                     
 sftgname             English country name                                                                                                                                                                                    
-constchg60           Major Constitutional Changes: The number of basic alternations in a state's constitution (1960s)                                                                                                                 
 constchg70           Major Constitutional Changes: The number of basic alternations in a state's constitution (1970s)                                                                                                                     
 constchg80           Major Constitutional Changes: The number of basic alternations in a state's constitution (1980s)                                                                                                                       
-corrupti             Knack and Keefer measure of corruption (1980-89)                                                                                                                                                        
-                                                                                                                
+corrupti             Knack and Keefer measure of corruption (1980-89)
+
+
+
+
+
+
+##Code
+
+## Reading and merging data, calculating average number of consitutional changes and average years in power
 
 
 ```{r}
 violence <- read_csv("data(final project gov 50)/Violence/violence.csv")
 
-violence <- violence |>
-  mutate(constch_overall = constchg60 + constchg70 + constchg80) 
+dpi <- read_csv("data(final project gov 50)/DPI2020/DPI2020.csv")
 
-violence|>
-ggplot(violence, mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + labs (title = "Number of Constitutional Changes by Corruption Level", y = "Number of Constitutional Changes", x = "Corruption Level") 
+violence <- 
+  violence |>
+  mutate(constch_overall = constchg70 + constchg80) 
+
+dpi <- 
+  dpi |>
+  filter(year >= 1970 & year <= 1989) 
+  
+  dpi <- 
+   dpi |>
+  group_by(country) |>
+  mutate(avg_yrsoffc = mean(yrsoffc, na.rm = TRUE)) |>
+  filter(avg_yrsoffc >= 0)
+  
+  colnames(dpi) [1] <- "country"
+  
+dpi <- 
+  dpi|>
+  mutate(country = toupper(country))
+
+ data <- 
+   merge(violence, dpi, by = "country") 
+ 
+ data <- data |>
+   select(country,year, constchg70, constchg80, constch_overall, corrupti, yrsoffc, avg_yrsoffc)
+ 
+
 
 ```
+
+
+                                                    
+                                                                                            
+## Visualisation 1 - Corruption vs. Number of Constitutional Changes
+
+```{r}
+data |>
+ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + labs (title = "Number of Constitutional Changes by Corruption Level", y = "Number of Constitutional Changes", x = "Corruption Level") 
+
+```
+
+
+
+
+
+
+## Visualisation 2 - Avg Number of Constitutional Changes vs. AVGYRSOFFC
+
+```{r}
+data |>
+  group_by(country) |>
+  filter(row_number() == 1) |>
+  ggplot(mapping = aes(y = avg_yrsoffc, x = constch_overall)) + geom_col()
+
+
+```
+
+```{r}
+summary(data$avg_yrsoffc)
+```
+
+
 
 
 ## Results From First Analysis
@@ -79,11 +104,11 @@ By conducting this analysis, my aim was to further investigate the relationship 
  
 
 ```{r}
-fit <- lm(constch_overall ~ corrupti, data = violence)
+fit <- lm(constch_overall ~ corrupti, data = data)
 
 fit
 
-fit_visual <- violence |> ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level")
+fit_visual <- data |> ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level")
 
 fit_visual
 ```
