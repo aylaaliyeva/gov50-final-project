@@ -87,12 +87,7 @@ data |>
   group_by(country) |>
   summarise(avg_yrsoffc = mean(avg_yrsoffc, na.rm = TRUE),
             constch_overall = mean(constch_overall, na.rm = TRUE)) |>
-  ggplot(mapping = aes(y = avg_yrsoffc, x = constch_overall)) + geom_col() + labs(y = "Mean Chief Officer Term", x = "Number of Constitutional Changes")
-
-```
-
-```{r}
-summary(data$avg_yrsoffc)
+  ggplot(mapping = aes(y = avg_yrsoffc, x = constch_overall)) + geom_col() + labs(y = "Mean Chief Officer Term", x = "Number of Constitutional Changes") 
 ```
 
 
@@ -117,7 +112,7 @@ fit <- lm(constch_overall ~ corrupti, data = data)
 
 fit
 
-fit_visual <- data |> ggplot(mapping = aes(x = corrupti, y = constch_overall, colour = avgyrs_range)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term" )
+fit_visual <- data |> ggplot(mapping = aes(x = corrupti, y = constch_overall, colour = avgyrs_range)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term" , caption = "Corruption Level of 0 being most corrupt, and a Level of 6 being least corrupt")
 
 fit_visual
 ```
