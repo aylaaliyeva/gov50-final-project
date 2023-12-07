@@ -41,13 +41,14 @@ dpi <-
   dpi |>
   filter(year >= 1970 & year <= 1989) 
   
+ colnames(dpi) [1] <- "country"
+
   dpi <- 
    dpi |>
   group_by(country) |>
   mutate(avg_yrsoffc = mean(yrsoffc, na.rm = TRUE)) |>
-  filter(avg_yrsoffc >= 0)
+  filter(yrsoffc >= 0)
   
-  colnames(dpi) [1] <- "country"
   
 dpi <- 
   dpi|>
@@ -84,9 +85,9 @@ ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + labs (
 ```{r}
 data |>
   group_by(country) |>
-  filter(row_number() == 1) |>
-  ggplot(mapping = aes(y = avg_yrsoffc, x = constch_overall)) + geom_col()
-
+  summarise(avg_yrsoffc = mean(avg_yrsoffc, na.rm = TRUE),
+            constch_overall = mean(constch_overall, na.rm = TRUE)) |>
+  ggplot(mapping = aes(y = avg_yrsoffc, x = constch_overall)) + geom_col() + labs(y = "Mean Chief Officer Term", x = "Number of Constitutional Changes")
 
 ```
 
@@ -97,18 +98,26 @@ summary(data$avg_yrsoffc)
 
 
 
-## Results From First Analysis
-
-By conducting this analysis, my aim was to further investigate the relationship between corruption levels and frequencies of constitutional change globally. Through the linear regression model, we can observe that each unit increase in corruption is associated with a decrease of 0.1214 in the number of major constitutional changes. Additionally, the intercept relays that for a country with a corruption level of 0, the expected number of major constitutional changes would be 0.8062.
- Thus, we can conclude that the correlation between corruption levels and frequencies of constitutional change is negative, which is shown by the estimated line of best fit on the scatterplot below.
+## Visualisation 3 - Results, Regression, Combining everything 
  
 
 ```{r}
+
+data <- 
+  data |>
+  mutate(avgyrs_range = case_when(
+    avg_yrsoffc <= 5 ~ "5 Years and Under",
+    avg_yrsoffc > 5 & avg_yrsoffc <= 15 ~ "Between 5 and 15 Years",
+    avg_yrsoffc > 15 & avg_yrsoffc <= 25 ~ "Between 15 and 25 Years",
+    avg_yrsoffc >= 25 ~ "Over 25 Years"
+  ))
+
+
 fit <- lm(constch_overall ~ corrupti, data = data)
 
 fit
 
-fit_visual <- data |> ggplot(mapping = aes(x = corrupti, y = constch_overall)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level")
+fit_visual <- data |> ggplot(mapping = aes(x = corrupti, y = constch_overall, colour = avgyrs_range)) + geom_point() + geom_smooth(method = lm, colour = "brown") + labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term" )
 
 fit_visual
 ```
