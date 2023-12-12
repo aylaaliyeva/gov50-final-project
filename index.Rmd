@@ -29,38 +29,47 @@ corrupti             Knack and Keefer measure of corruption (1980-89)
 
 ##Code
 
-## Reading and merging data, calculating average number of consitutional changes and average years in power
+## Preparing the data
 
 
 ```{r}
+
+## Reading data files
 violence <- read_csv("data(final project gov 50)/Violence/violence.csv")
 
 dpi <- read_csv("data(final project gov 50)/DPI2020/DPI2020.csv")
 
+
+## Calculating overall number of constitutional changes for each country over a given period
 violence <- 
   violence |>
+  group_by(country) |>
   mutate(constch_overall = constchg70 + constchg80) 
 
-dpi <- 
-  dpi |>
-  filter(year >= 1970 & year <= 1989) 
-  
- colnames(dpi) [1] <- "country"
+## Calculating the average number of years Chief Executive has been in office for each country
+colnames(dpi) [1] <- "country"
 
-  dpi <- 
+dpi <- 
    dpi |>
   group_by(country) |>
   mutate(avg_yrsoffc = mean(yrsoffc, na.rm = TRUE)) |>
   filter(yrsoffc >= 0)
+
+## Filtering one of the data sources to only include needed decades
+dpi <- 
+  dpi |>
+  filter(year >= 1970 & year <= 1989) 
   
   
+## Merging data sources by country
 dpi <- 
   dpi|>
   mutate(country = toupper(country))
 
  data <- 
-   merge(violence, dpi, by = "country") 
+   merge(violence, dpi, by = "country")
  
+ ## Tidying up the data: selecting needed variables
  data <- data |>
    select(country,year, constchg70, constchg80, constch_overall, corrupti, yrsoffc, avg_yrsoffc)
  
@@ -75,15 +84,19 @@ dpi <-
 
 
 ```{r}
+
+## 
 countryonce_data <-
   data |>
   group_by(country) |>
   slice(1)
 
+
+## Bar plot summarizing frequency of constitutional change across countries
 countryonce_data |>
   ggplot(mapping = aes(x = constch_overall)) + 
   geom_bar(fill = "lightsteelblue") + 
-  labs(title = "Frequency of Constitutional Change Across Countries", y = "Number of Countries", x = "Number of Constitutional Changes (1970s-1980s)") + 
+  labs(title = "Frequency of Constitutional Change Across Countries", y = "Number of Countries", x = "Number of Major Constitutional Changes (1970s-1980s)") + 
   theme_calc() +
   theme(text = element_text("Georgia"))
 
