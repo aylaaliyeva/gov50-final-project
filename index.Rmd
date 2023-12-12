@@ -21,7 +21,7 @@ library(modelsummary)
 
 Do higher levels of corruption lead to more frequent constitutional changes? If so, is there a direct correlation between this trend and the average number of years the Chief Executive of a country stays in power? In this study, I examine data from a variety of countries in order to explore the relationship between these variables throughout the two decades of the 1970s and 1980s. I hypothesise that higher levels of corruption are positively correlated with more frequent constitutional changes and a higher average period within which a Chief Executive remains in office. This hypothesis is grounded in the theory that governments with higher corruption levels are more likely to revise legislation in order to hold on to power.
 
- I find the study exciting in that it attempts to explore the implications of corruption in the misuse of power to influence constitutional frameworks and governance. In the case that the data supports the hypothesis, this would point to a country’s level of corruption as a determinant of both the nature of its legal system, as well as the course of its executive leadership.
+ Through this study, I attempt to explore the implications of corruption in the misuse of power to influence constitutional frameworks and governance. In the case that the data supports the hypothesis, this would point to a country’s level of corruption as a determinant of both the nature of its legal system, as well as the course of its executive leadership.
 
 
 
@@ -88,7 +88,7 @@ dpi <-
 
 ## Data Section
 
- The data source used in this study is one that has been gathered by merging data on political violence, as well as the Inter-American Development Bank “Database of Political Institutions” to ultimately extract the key dependent and independent variables. 
+ The data source used in this study is one that has been gathered by merging the Political Violence Dataset, as well as the Inter-American Development Bank “Database of Political Institutions” to ultimately extract the key dependent and independent variables. 
  
 The dependent variable used in this research is the overall number of major constitutional changes for countries throughout the period of the 1970s and 1980s, derived from the two variables relaying the number of constitutional changes for a given country within each of the two decades, its measurement method being through a compilation of government records. The key independent variables are the countries’ level of corruption, as well as the average number of years the Chief Executive remains in office. The level of corruption is measured using 1980-1989 Knack and Keefer measure of corruption, with a lower number indicating a lower level of corruption. The latter variable relays the official number of years the Chief Executive of the time remained in office, calculated cumulatively for each Chief Executive as of January 1st of each year, derived from public records.
 
@@ -146,7 +146,6 @@ fit_visual <-
   geom_smooth(method = lm, colour = "salmon") + 
   labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term") + 
   scale_x_reverse() +
-  scale_x_continuous(breaks = c(0,1,2,3,4,5,6), labels = c("6 (Least Corrupt)", "5","4","3","2","1","0 (Most Corrupt)")) + 
   theme_calc() +
   scale_color_manual(values = wes_palette("FantasticFox1")) +
  theme(text = element_text("Georgia"))
