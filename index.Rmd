@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Ayla Aliyeva"
-description: "Corruption, Constitutional Changes, Leadership: An Analysis "
+description: "Corruption, Constitutional Changes, Leadership: An Analysis"
 output:
   distill::distill_article:
     self_contained: false
@@ -101,7 +101,7 @@ countryonce_data <-
 ## Bar plot summarizing key dependent variable
 countryonce_data |>
   ggplot(mapping = aes(x = constch_overall)) + 
-  geom_bar(fill = "lightsteelblue") + 
+  geom_density(fill = "lightsteelblue") + 
   labs(title = "Frequency of Constitutional Change Across Countries", y = "Number of Countries", x = "Number of Major Constitutional Changes (1970s-1980s)") + 
   theme_calc() +
   theme(text = element_text("Georgia"))
