@@ -35,18 +35,22 @@ corrupti             Knack and Keefer measure of corruption (1980-89)
 ```{r}
 
 ## Reading data files
+
 violence <- read_csv("data(final project gov 50)/Violence/violence.csv")
 
 dpi <- read_csv("data(final project gov 50)/DPI2020/DPI2020.csv")
 
 
 ## Calculating overall number of constitutional changes for each country over a given period
+
 violence <- 
   violence |>
   group_by(country) |>
   mutate(constch_overall = constchg70 + constchg80) 
 
+
 ## Calculating the average number of years Chief Executive has been in office for each country
+
 colnames(dpi) [1] <- "country"
 
 dpi <- 
@@ -55,13 +59,16 @@ dpi <-
   mutate(avg_yrsoffc = mean(yrsoffc, na.rm = TRUE)) |>
   filter(yrsoffc >= 0)
 
+
 ## Filtering one of the data sources to only include needed decades
+
 dpi <- 
   dpi |>
   filter(year >= 1970 & year <= 1989) 
   
   
 ## Merging data sources by country
+
 dpi <- 
   dpi|>
   mutate(country = toupper(country))
@@ -69,7 +76,9 @@ dpi <-
  data <- 
    merge(violence, dpi, by = "country")
  
+ 
  ## Tidying up the data: selecting needed variables
+ 
  data <- data |>
    select(country,year, constchg70, constchg80, constch_overall, corrupti, yrsoffc, avg_yrsoffc)
  
@@ -85,14 +94,14 @@ dpi <-
 
 ```{r}
 
-## 
+## Creating an object that extracts first observation for each country
 countryonce_data <-
   data |>
   group_by(country) |>
   slice(1)
 
 
-## Bar plot summarizing frequency of constitutional change across countries
+## Bar plot summarizing key dependent variable
 countryonce_data |>
   ggplot(mapping = aes(x = constch_overall)) + 
   geom_bar(fill = "lightsteelblue") + 
@@ -111,7 +120,9 @@ countryonce_data |>
 ## Visualisation 2 - Results, Regression, Combining everything 
  
 
-```{r, render = "normal_print"}
+```{r}
+
+## Creating a variable with categories describing average years of countries' Chief Executive in office
 
 data <- 
   data |>
@@ -122,18 +133,25 @@ data <-
     avg_yrsoffc >= 25 ~ "Over 25 Years"
   ))
 
+
+## Plot of main analysis 
+
 fit_visual <- 
   data |>
   ggplot(mapping = aes(x = corrupti, y = constch_overall, colour = avgyrs_range)) + 
   geom_point() + 
   geom_smooth(method = lm, colour = "salmon") + 
-  labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term") + scale_x_reverse() + 
+  labs(title = "Linear Regression on Corruption and Constitutional Changes", y = "Number of Constitutional Changes", x = "Corruption Level", colour = "Mean Chief Executive Term") + 
+  scale_x_reverse() +
   scale_x_continuous(breaks = c(0,1,2,3,4,5,6), labels = c("6 (Least Corrupt)", "5","4","3","2","1","0 (Most Corrupt)")) + 
   theme_calc() +
   scale_color_manual(values = wes_palette("FantasticFox1")) +
  theme(text = element_text("Georgia"))
 
 fit_visual
+
+
+## Regression Output
 
 fit <- lm(constch_overall ~ corrupti + avg_yrsoffc, data = data)
 

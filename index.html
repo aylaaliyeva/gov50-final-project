@@ -1559,37 +1559,45 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tbody>
 </table>
 <p>##Code</p>
-<h2 id="reading-and-merging-data-calculating-average-number-of-consitutional-changes-and-average-years-in-power">Reading and merging data, calculating average number of consitutional changes and average years in power</h2>
+<h2 id="preparing-the-data">Preparing the data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>violence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data(final project gov 50)/Violence/violence.csv"</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Reading data files</span></span>
+<span><span class='va'>violence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data(final project gov 50)/Violence/violence.csv"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>dpi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data(final project gov 50)/DPI2020/DPI2020.csv"</span><span class='op'>)</span></span>
 <span></span>
+<span></span>
+<span><span class='co'>## Calculating overall number of constitutional changes for each country over a given period</span></span>
 <span><span class='va'>violence</span> <span class='op'>&lt;-</span> </span>
 <span>  <span class='va'>violence</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>constch_overall <span class='op'>=</span> <span class='va'>constchg70</span> <span class='op'>+</span> <span class='va'>constchg80</span><span class='op'>)</span> </span>
 <span></span>
-<span><span class='va'>dpi</span> <span class='op'>&lt;-</span> </span>
-<span>  <span class='va'>dpi</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>&gt;=</span> <span class='fl'>1970</span> <span class='op'>&amp;</span> <span class='va'>year</span> <span class='op'>&lt;=</span> <span class='fl'>1989</span><span class='op'>)</span> </span>
-<span>  </span>
-<span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>dpi</span><span class='op'>)</span> <span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"country"</span></span>
+<span><span class='co'>## Calculating the average number of years Chief Executive has been in office for each country</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>dpi</span><span class='op'>)</span> <span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"country"</span></span>
 <span></span>
-<span>  <span class='va'>dpi</span> <span class='op'>&lt;-</span> </span>
+<span><span class='va'>dpi</span> <span class='op'>&lt;-</span> </span>
 <span>   <span class='va'>dpi</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>avg_yrsoffc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>yrsoffc</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>yrsoffc</span> <span class='op'>&gt;=</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>## Filtering one of the data sources to only include needed decades</span></span>
+<span><span class='va'>dpi</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='va'>dpi</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>&gt;=</span> <span class='fl'>1970</span> <span class='op'>&amp;</span> <span class='va'>year</span> <span class='op'>&lt;=</span> <span class='fl'>1989</span><span class='op'>)</span> </span>
 <span>  </span>
 <span>  </span>
+<span><span class='co'>## Merging data sources by country</span></span>
 <span><span class='va'>dpi</span> <span class='op'>&lt;-</span> </span>
 <span>  <span class='va'>dpi</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>country <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span> <span class='va'>data</span> <span class='op'>&lt;-</span> </span>
-<span>   <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>violence</span>, <span class='va'>dpi</span>, by <span class='op'>=</span> <span class='st'>"country"</span><span class='op'>)</span> </span>
+<span>   <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>violence</span>, <span class='va'>dpi</span>, by <span class='op'>=</span> <span class='st'>"country"</span><span class='op'>)</span></span>
 <span> </span>
+<span> <span class='co'>## Tidying up the data: selecting needed variables</span></span>
 <span> <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span></span>
 <span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>country</span>,<span class='va'>year</span>, <span class='va'>constchg70</span>, <span class='va'>constchg80</span>, <span class='va'>constch_overall</span>, <span class='va'>corrupti</span>, <span class='va'>yrsoffc</span>, <span class='va'>avg_yrsoffc</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -1597,15 +1605,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="visualisation-1---summary-of-constch_overall">Visualisation 1 - Summary of constch_overall</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>countryonce_data</span> <span class='op'>&lt;-</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## </span></span>
+<span><span class='va'>countryonce_data</span> <span class='op'>&lt;-</span></span>
 <span>  <span class='va'>data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
 <span></span>
+<span></span>
+<span><span class='co'>## Bar plot summarizing frequency of constitutional change across countries</span></span>
 <span><span class='va'>countryonce_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>constch_overall</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"lightsteelblue"</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Frequency of Constitutional Change Across Countries"</span>, y <span class='op'>=</span> <span class='st'>"Number of Countries"</span>, x <span class='op'>=</span> <span class='st'>"Number of Constitutional Changes (1970s-1980s)"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Frequency of Constitutional Change Across Countries"</span>, y <span class='op'>=</span> <span class='st'>"Number of Countries"</span>, x <span class='op'>=</span> <span class='st'>"Number of Major Constitutional Changes (1970s-1980s)"</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/ggthemes/man/theme_calc.html'>theme_calc</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span><span class='st'>"Georgia"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -1661,14 +1672,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 (Intercept)
 </td>
 <td style="text-align:center;">
-0.341
+0.282
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:center;">
-s.e. = 0.035
+s.e. = 0.029
 </td>
 </tr>
 <tr>
@@ -1683,7 +1694,7 @@ p = &lt;0.001
 corrupti
 </td>
 <td style="text-align:center;">
-−0.042
+−0.035
 </td>
 </tr>
 <tr>
@@ -1705,21 +1716,21 @@ p = &lt;0.001
 avg_yrsoffc
 </td>
 <td style="text-align:center;">
-−0.004
+0.001
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:center;">
-s.e. = 0.002
+s.e. = 0.001
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:center;">
-p = 0.016
+p = 0.115
 </td>
 </tr>
 </tbody>
