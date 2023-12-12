@@ -86,7 +86,11 @@ dpi <-
 
 
 
-## Visualisation 1 - Summary of constch_overall
+## Data Section
+
+ The data source used in this study is one that has been gathered by merging data on political violence, as well as the Inter-American Development Bank “Database of Political Institutions” to ultimately extract the key dependent and independent variables. 
+The dependent variable used in this research is the overall number of major constitutional changes for countries throughout the period of the 1970s and 1980s, derived from the two variables relaying the number of constitutional changes for a given country within each of the two decades, its measurement method being through a compilation of government records. The key independent variables are the countries’ level of corruption, as well as the average number of years the Chief Executive remains in office. The level of corruption is measured using 1980-1989 Knack and Keefer measure of corruption, with a lower number indicating a lower level of corruption. The latter variable relays the official number of years the Chief Executive of the time remained in office, calculated cumulatively for each Chief Executive as of January 1st of each year, derived from public records.
+ The density plot below summarises the frequency of constitutional change across countries, demonstrating the manner in which the variable is skewed to the right, with most countries having undergone no constitutional changes over the two decades.
 
 
 ```{r}
