@@ -26,11 +26,17 @@ corrupti             Knack and Keefer measure of corruption (1980-89)
 
 
 
+## Introduction
 
-##Code
+Do higher levels of corruption lead to more frequent constitutional changes? If so, is there a direct correlation between this trend and the average number of years the Chief Executive of a country stays in power? In this study, I examine data from a variety of countries in order to explore the relationship between these variables throughout the two decades of the 1970s and 1980s. I hypothesise that higher levels of corruption are positively correlated with more frequent constitutional changes and a higher average period within which a Chief Executive remains in office. This hypothesis is grounded in the theory that governments with higher corruption levels are more likely to revise legislation in order to hold on to power.
+
+ I find the study exciting in that it attempts to explore the implications of corruption in the misuse of power to influence constitutional frameworks and governance. In the case that the data supports the hypothesis, this would point to a country’s level of corruption as a determinant of both the nature of its legal system, as well as the course of its executive leadership.
+
+
+
+
 
 ## Preparing the data
-
 
 ```{r}
 
@@ -131,7 +137,7 @@ data <-
     avg_yrsoffc > 5 & avg_yrsoffc <= 15 ~ "Between 5 and 15 Years",
     avg_yrsoffc > 15 & avg_yrsoffc <= 25 ~ "Between 15 and 25 Years",
     avg_yrsoffc >= 25 ~ "Over 25 Years"
-  ))
+  )) 
 
 
 ## Plot of main analysis 
