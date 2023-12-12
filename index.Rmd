@@ -1,11 +1,13 @@
 ---
 title: "Gov 50 Final Project"
 author: "Ayla Aliyeva"
-description: "My final project"
+description: "Corruption, Constitutional Changes, Leadership: An Analysis "
 output:
   distill::distill_article:
     self_contained: false
 ---
+
+## Set up chunk
 ```{r}
 library(tidyverse)
 library(ggthemes)
@@ -13,17 +15,6 @@ library(wesanderson)
 library(jtools)
 library(modelsummary)
 ```
-
-Variable Name        Variable Description
--------------        --------------------
-country              Country                                                                                                                                                                                                     
-sftgname             English country name                                                                                                                                                                                    
-constchg70           Major Constitutional Changes: The number of basic alternations in a state's constitution (1970s)                                                                                                                     
-constchg80           Major Constitutional Changes: The number of basic alternations in a state's constitution (1980s)                                                                                                                       
-corrupti             Knack and Keefer measure of corruption (1980-89)
-
-
-
 
 
 ## Introduction
