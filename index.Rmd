@@ -1,7 +1,6 @@
 ---
-title: "Gov 50 Final Project"
-author: "Ayla Aliyeva"
-description: "Corruption, Constitutional Changes, Leadership: An Analysis"
+title: "Power Play: Corruption, Constitutional Change, Leadership"
+description: "Ayla Aliyeva | Fall 2023 | Gov 50 Final Project"
 output:
   distill::distill_article:
     self_contained: false
@@ -176,3 +175,9 @@ modelsummary::modelsummary(fit,
 
 
 ```
+
+
+## Conclusion
+
+
+To conclude, by confirming the positive correlation between the level of corruption and the number of constitutional changes, the analysis above affirms the hypothesis. However, by demonstrating that the coefficient of the mean Chief Executive term in the regression model is not statistically significant, the analysis also indicates the nuanced nature of the factors affecting the correlations. Therefore, it is important to acknowledge the limitations of the study, which, despite the rejection of the null hypothesis, do not allow us to assert with confidence a causal relationship between the level of corruption and the number of constitutional changes. Such limitations include the relatively short time-frame within which the data was collected, possible omitted variables and confounding variables, such as, for instance, the larger global factors and international pressures that may have affected constitutional changes. To alleviate some of these limitations would involve additional time as well as funds. If I were to improve my analysis using these additional resources, I would include data over the last century, rather than two decades, controlling for confounders, such as those involving historical context and taking into account the nature of the constitutional changes. Alas, that is beyond the scope of this study.
